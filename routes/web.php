@@ -46,4 +46,8 @@ Route::post('/options/update/{id}', 'App\Http\Controllers\OptionsController@upda
 
 Route::get('/questionsids', 'App\Http\Controllers\QuizController@getIds');
 
+Route::post('/lights/idle', 'App\Http\Controllers\QuizController@idle');
+Route::post('/lights/correct', 'App\Http\Controllers\QuizController@correct');
+Route::post('/lights/wrong', 'App\Http\Controllers\QuizController@wrong');
+
 

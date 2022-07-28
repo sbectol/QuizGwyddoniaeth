@@ -2,82 +2,92 @@
 
 @section('content')
 
-<div class="container">
+<div class="container3">
+    <div>
 
-    <div class="row">
+        @php ($score=0)
 
-        <div class="col-md-10 col-md-offset-1">
+        @foreach ($responses as $response => $questions)
+            @foreach ($questions as $question => $options)
+                <h1>{{$question}}</h1>
+            @endforeach
 
-            <div class="panel panel-default">
 
-                <div class="panel-heading"></div>
+                @foreach ($questions as $question => $options)
 
-                    <div class="panel-body">
+                    <ul class="questions">
 
-                        @php ($score=0)
+                        @foreach ($options as $option)
 
-                        @foreach ($responses as $response => $questions)
-                            
-                            <ul class="list-group questions">
-                                
-                                @foreach ($questions as $question => $options)
-                                    
-                                    <li class="list-group-item">Cwestiwn: <b>{{$question}}</b>
-                                    
-                                        <ul>
-                                            
-                                            @foreach ($options as $option)
-                                                
-                                                @php ($class = "list-group-item")
-                                                    
-                                                    @if($option->correct)
-                                                        
-                                                        @php ($class = "list-group-item-success")
-                                                        
-                                                        @endif
+                            @php ($class = "answers")
 
-                                                @if($option->id == $response && $option->correct)
-                                                
-                                                    @php ($score = $score + 1)
-                                                    
-                                                    @endif 
+                                @if($option->correct)
 
-                                                @if($option->id == $response && !$option->correct)
 
-                                                    @php ($class = "list-group-item-danger")
 
-                                                    @endif
+                                    @endif
 
-                                                <li class="{{$class}}">
+                            @if($option->id == $response && $option->correct)
 
-                                                    {{$option->body}}
+                            @php ($class = "answers correct")
+                            <script>
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", '/lights/correct', true);
+                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token()}}')
+                                xhr.send('hello');
+                                </script>
 
-                                                    </li>
+                                @endif
 
-                                                @endforeach
+                            @if($option->id == $response && !$option->correct)
 
-                                                </ul>
+                                @php ($class = "answers wrong")
+                                <script>
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", '/lights/wrong', true);
+                                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                                    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token()}}')
+                                    xhr.send('hello');
+                                    </script>
 
-                                            </li>
+                                @endif
 
-                                        @endforeach
+                            <li class="{{$class}}">
 
-                                </ul>
+                                {{$option->body}}
+
+                                </li>
 
                             @endforeach
 
-                            <h1>{{$score}}/10</h1>
+                            </ul>
 
-                        </div>
-                        
-                </div>
 
-            </div>
 
-        </div>
+                    @endforeach
+
+                @endforeach
+
+        <a class="btn ateb" href="/quiz">Cwestiwn Arall</a>
 
     </div>
 
 </div>
+
+
+<script>
+const myTimeout = setTimeout(lightsIdle, 5000);
+
+function lightsIdle() {
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", '/lights/idle', true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token()}}')
+xhr.send('hello');
+
+}
+</script>
 
 @endsection

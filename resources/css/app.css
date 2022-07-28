@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-image: url('/images/back.png');
+    background-size: cover;
+    color: whitesmoke!Important;
+
+}
+/* nunito-regular - latin */
+@font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/nunito-v25-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('/fonts/nunito-v25-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('/fonts/nunito-v25-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('/fonts/nunito-v25-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('/fonts/nunito-v25-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('/fonts/nunito-v25-latin-regular.svg#Nunito') format('svg'); /* Legacy iOS */
+  }
+  /* nunito-900 - latin */
+  @font-face {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 900;
+    src: url('/fonts/nunito-v25-latin-900.eot'); /* IE9 Compat Modes */
+    src: local(''),
+         url('/fonts/nunito-v25-latin-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('/fonts/nunito-v25-latin-900.woff2') format('woff2'), /* Super Modern Browsers */
+         url('/fonts/nunito-v25-latin-900.woff') format('woff'), /* Modern Browsers */
+         url('/fonts/nunito-v25-latin-900.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('/fonts/nunito-v25-latin-900.svg#Nunito') format('svg'); /* Legacy iOS */
+  }
+h1 {
+    font-family: "Nunito", sans-serif!Important;
+    border: 5px solid #fff;
+    border-radius: 1rem;
+    background-color: #16214e;
+
+}
+.content {
+    max-width: 500px;
+    margin: auto;
+  }
+
+    div.container3 {
+        height: 768px;
+        position: relative }              /* 1 */
+     div.container3 div {
+        margin: 0;
+        position: absolute;               /* 2 */
+        top: 50%;                         /* 3 */
+        transform: translate(0, -50%) }   /* 4 */
+.answers {
+    padding: 5px;
+    border: 5px solid #fff;
+    border-radius: 1em;
+    cursor: pointer;
+    z-index: 90;
+    background: #16214e;
+}
+.correct {
+    background: green;
+}
+.wrong {
+    background: red;
+}
+.questions {
+    list-style-type: none;
+    margin: 25px 0 0 0;
+    padding: 0;
+  }
+.ateb {
+    color: #fff;
+    background-color: orange;
+    border-color: orange;
+}
+  .questions li {
+    float: left;
+    margin: 0 5px 0 0;
+    width: 364px;
+    height: 120px;
+    position: relative;
+  }
+
+  .questions label,
+  .questions input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #16214e;
+  }
+
+  .questions input[type="radio"] {
+    opacity: 0.01;
+    z-index: 100;
+  }
+
+  .questions input[type="radio"]:checked+label,
+  .Checked+label {
+    background: orange;
+  }
+
+
+
+  .questions label {
+    padding: 5px;
+    border: 5px solid #fff;
+    border-radius: 1em;
+    cursor: pointer;
+    z-index: 90;
+  }
+
+  .questions label:hover {
+    background: #DDD;
+  }

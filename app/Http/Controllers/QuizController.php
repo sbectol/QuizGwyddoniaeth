@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 
 
@@ -31,12 +32,20 @@ class QuizController extends Controller
     public function getQuiz()
     {
 
+        $response = Http::post('http://10.10.10.152/api/command', [
+            'command' => 'Start Playlist',
+            'args' => [
+                "Idle",
+                "true",
+                "false"
+              ]
 
-        $questions = Question::orderByRaw('RAND()')->take(10)->get();
+        ]);
+        $questions = Question::orderByRaw('RAND()')->take(1)->get();
 
         foreach($questions as $question){
 
-            $options[$this->getQuestion($question->id)][] = Options::where('question_id','=',$question->id)->select('id','body','question_id','correct')->get();
+            $options[$this->getQuestion($question->id)][] = Option::where('question_id','=',$question->id)->select('id','body','question_id','correct')->get();
 		}
 
 
@@ -54,8 +63,53 @@ class QuizController extends Controller
 
 
     }
+    public function idle() {
+
+        $response = Http::post('http://10.10.10.152/api/command', [
+            'command' => 'Start Playlist',
+            'args' => [
+                "Idle",
+                "true",
+                "false"
+              ]
+
+        ]);
+       return http_response_code(200);
+    }
+
+    public function correct() {
+        $response = Http::post('http://10.10.10.152/api/command', [
+            'command' => 'Start Playlist',
+            'args' => [
+                "Correct",
+                "false",
+                "false"
+              ]
+
+        ]);
+        return http_response_code(200);
+    }
+
+    public function wrong() {
+        $response = Http::post('http://10.10.10.152/api/command', [
+            'command' => 'Start Playlist',
+            'args' => [
+                "Wrong",
+                "false",
+                "false"
+              ]
+
+        ]);
+        return http_response_code(200);
+    }
+
 
     public function result(Request $req) {
+
+
+
+
+
         $input = $req->all();
         $array_of_options = $input['option'];
         foreach($array_of_options as $key => $value){

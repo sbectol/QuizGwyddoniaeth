@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Option;
+use App\Models\Option;
 use App\Question;
 
 class OptionsController extends Controller
@@ -60,7 +60,7 @@ class OptionsController extends Controller
 
         Option::find($id)->update($optionData);
 
-        return redirect('/');
+        return redirect('/questions');
 
     }
 
@@ -78,7 +78,6 @@ class OptionsController extends Controller
         } else {
         $data->correct = 0;
         }
-        $data->user_id= auth()->id();
         $data->question_id = request('question_id');
 
         $data->save();
@@ -88,10 +87,10 @@ class OptionsController extends Controller
 
         $id['option_number'] = request('option_number') + 1;
 
-        if  ($id['option_number'] < 5) {
+        if  ($id['option_number'] < 4) {
         return redirect('/options/create')->with('data', $id);
         } else {
-        return redirect('/');
+        return redirect('/questions');
         }
 
 

@@ -5,7 +5,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
-  public function question()
+
+
+    protected $fillable = [
+        'body', 'question_id', 'correct',
+    ];
+
+    public function question()
 
   {
 
